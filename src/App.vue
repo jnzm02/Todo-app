@@ -1,9 +1,18 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 import TypeComponent from '@/components/TypeComponent.vue'
 
 const activeBar = ref('all')
+const align = computed(() => {
+  if (activeBar.value === 'all') {
+    return 'flex-start'
+  } else if (activeBar.value === 'active') {
+    return 'center'
+  } else {
+    return 'flex-end'
+  }
+});
 
 const changeActiveBar = (type: string) => {
   activeBar.value = type
@@ -18,8 +27,7 @@ const changeActiveBar = (type: string) => {
       <div class="tab" @click="changeActiveBar('active')">Active</div>
       <div class="tab" @click="changeActiveBar('completed')">Completed</div>
     </div>
-    <div class="slider"></div>
-    <hr>
+    <div class="bar" :style="'justify-content:' + align"><div class="slider"></div></div>
   </nav>
   <main>
     <type-component type="all" :class="{ notSeen: activeBar !== 'all'}" />
@@ -61,6 +69,8 @@ p {
 
 
 .slider {
+  position: absolute;
+  bottom: 0;
   height: 4px;
   width: 89px;
   background-color: var(--secondary-color);
@@ -72,7 +82,12 @@ p {
   display: none;
 }
 
-hr {
-  margin: 0;
+.bar {
+  position: relative;
+  padding: 0 57px;
+  display: flex;
+  border: 1px solid #E5E5E5;
+  height: 0;
+  transition: justify-content 0.5s ease;
 }
 </style>

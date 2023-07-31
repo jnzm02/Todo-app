@@ -2,11 +2,17 @@
 const props = defineProps({
     new_todo: String
 })
-defineEmits(['update:modelValue'])
+
+const emits = defineEmits(['update:modelValue'])
+const handleInput = (event: any) => {
+    if (event.target) {
+        emits('update:modelValue', event.target.value)
+    }
+}
 </script>
 
 <template>
-    <input type="text" placeholder="add details" @input="$emit('update:modelValue', $event.target.value)">
+    <input type="text" placeholder="add details" @input="handleInput">
 </template>
 
 <style scoped lang="scss">
