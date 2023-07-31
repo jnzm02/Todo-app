@@ -6,8 +6,12 @@ import { useTodoStore } from '@/stores/todo'
 
 const todoStore = useTodoStore()
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const props = defineProps({
-    items: <Todo[]>[],
+    items: {
+        type: Array as () => Todo[],
+        required: true
+    },
     type: String
 })
 </script>

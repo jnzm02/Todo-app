@@ -1,12 +1,15 @@
 <script lang="ts" setup>
-import { type Todo } from '@/types/todo';
+import type { Todo } from '@/types/todo';
 import { useTodoStore } from '@/stores/todo';
 
 const todoStore = useTodoStore()
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const props = defineProps({
-    item: <Todo>{},
+    item: { 
+        type: Object as () => Todo,
+        required: true
+    },
     deleteActive: Boolean
 })
 
